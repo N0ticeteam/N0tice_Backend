@@ -22,7 +22,7 @@ public class CompanyController {
 
     @GetMapping("/search")
     public ApiResponse<List<CompanyResponse>> searchCompanies(
-            @RequestParam String keyword) {
+            @RequestParam("keyword") String keyword) {
 
         List<Company> companies = companyService.searchCompanies(keyword);
 
@@ -36,9 +36,9 @@ public class CompanyController {
     // 시, 구, 동으로 검색
     @GetMapping("/location")
     public ApiResponse<List<CompanyResponse>> searchCompaniesByLocation(
-            @RequestParam String city,
-            @RequestParam String district,
-            @RequestParam String neighborhood) {
+            @RequestParam("city") String city,
+            @RequestParam("district") String district,
+            @RequestParam("neighborhood") String neighborhood) {
 
         List<Company> companies = companyService.searchCompaniesByLocation(city, district, neighborhood);
 
