@@ -28,7 +28,6 @@ public class Company {
     private String addressDistrict;
     private String addressNeighborhood;
 
-    @Enumerated(EnumType.STRING) // Enum 값을 문자열로 DB에 저장
     @Column(nullable = false)
-    private AccidentType accidentType; // string -> enum 타입 변경
+    private String accidentType;
 }
