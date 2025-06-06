@@ -38,7 +38,7 @@ dependencies {
 	//.env
 	implementation 'io.github.cdimascio:java-dotenv:5.2.2'
 	//swagger 설정
-	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0'
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.7.0'
 	// OAuth 2.0
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 	// Jwt
