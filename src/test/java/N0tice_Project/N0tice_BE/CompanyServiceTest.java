@@ -1,4 +1,4 @@
-package N0tice_Project.N0tice_BE.company;
+package N0tice_Project.N0tice_BE;
 
 import N0tice_Project.N0tice_BE.company.domain.AccidentType;
 import N0tice_Project.N0tice_BE.company.domain.Company;
