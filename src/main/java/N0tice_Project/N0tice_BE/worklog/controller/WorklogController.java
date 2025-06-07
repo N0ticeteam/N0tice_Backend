@@ -1,5 +1,6 @@
 package N0tice_Project.N0tice_BE.worklog.controller;
 
+import N0tice_Project.N0tice_BE.global.ApiResponse;
 import N0tice_Project.N0tice_BE.worklog.dto.MonthlyWorklogResponse;
 import N0tice_Project.N0tice_BE.worklog.dto.WorklogRequest;
 import N0tice_Project.N0tice_BE.worklog.dto.WorklogResponse;
@@ -30,8 +31,9 @@ public class WorklogController {
             summary = "작업일지 등록",
             description = "특정 날짜에 대한 새로운 작업일지를 작성합니다.")
     @PostMapping
-    public WorklogResponse createWorklog(@RequestBody WorklogRequest request) {
-        return worklogService.createWorklog(request);
+    public ApiResponse<WorklogResponse> createWorklog(@RequestBody WorklogRequest request) {
+        WorklogResponse resp = worklogService.createWorklog(request);
+        return ApiResponse.onSuccess(resp);
     }
 
     //특정 날짜 일지 조회
@@ -39,11 +41,12 @@ public class WorklogController {
             summary = "특정 날짜 작업일지 조회",
             description = "특정 날짜에 기록한 작업일지를 조회합니다.")
     @GetMapping
-    public WorklogResponse getWorklogByDate(
+    public ApiResponse<WorklogResponse> getWorklogByDate(
             @RequestParam("userId") Long userId,
             @RequestParam("date")
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
-        return worklogService.getWorklogByDate(userId, date);
+        WorklogResponse resp = worklogService.getWorklogByDate(userId, date);
+        return ApiResponse.onSuccess(resp);
     }
 
     //월간 일지 조회 (달력용)
@@ -51,10 +54,11 @@ public class WorklogController {
             summary = "월간 작업일지 조회",
             description = "해당 월에 기록한 작업일지를 조회합니다.")
     @GetMapping("/monthly")
-    public List<MonthlyWorklogResponse> getMonthlyWorklogs(
+    public ApiResponse<List<MonthlyWorklogResponse>> getMonthlyWorklogs(
             @RequestParam("userId") Long userId,
             @RequestParam("year") int year,
             @RequestParam("month") int month) {
-        return worklogService.getMonthlyWorklogs(userId, year, month);
+        List<MonthlyWorklogResponse> list = worklogService.getMonthlyWorklogs(userId, year, month);
+        return ApiResponse.onSuccess(list);
     }
 }
