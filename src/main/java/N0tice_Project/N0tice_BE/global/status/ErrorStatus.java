@@ -17,7 +17,12 @@ public enum ErrorStatus implements BaseCode {
 
     // Company 관련 에러 코드 추가
     COMPANY_NOT_FOUND(HttpStatus.NOT_FOUND, "COMPANY404", "해당 회사를 찾을 수 없습니다."),
-    NO_SEARCH_RESULT(HttpStatus.NOT_FOUND, "COMPANY404", "검색 결과가 없습니다.");
+    NO_SEARCH_RESULT(HttpStatus.NOT_FOUND, "COMPANY404", "검색 결과가 없습니다."),
+
+    // Worklog 관련 에러 코드 추가
+    _NOT_FOUND(HttpStatus.NOT_FOUND,"WORKLOG404", "해당 작업일지를 찾을 수 없습니다."),
+    _DUPLICATE_RESOURCE(HttpStatus.CONFLICT,"WORKLOG409", "이미 작성된 작업일지가 있습니다.");
+
 
     private final HttpStatus httpStatus;
     private final String code;
