@@ -45,7 +45,9 @@ public class WorklogService {
                 .endTime(request.getEndTime())
                 .managerName(request.getManagerName())
                 .agentName(request.getAgentName())
-                .accidentRelatedNotes(request.getAccidentRelatedNotes())
+                .accidentRelatedNotes(
+                        request.getAccidentRelatedNotes() != null ? request.getAccidentRelatedNotes() : ""
+                )
                 .build();
 
         Worklog saved = worklogRepository.save(worklog);
