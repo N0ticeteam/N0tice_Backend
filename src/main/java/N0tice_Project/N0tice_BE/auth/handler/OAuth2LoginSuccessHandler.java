@@ -1,6 +1,7 @@
 package N0tice_Project.N0tice_BE.auth.handler;
 
 import N0tice_Project.N0tice_BE.auth.config.JwtTokenProvider;
+import N0tice_Project.N0tice_BE.auth.info.GoogleUserInfo;
 import N0tice_Project.N0tice_BE.auth.info.NaverUserInfo;
 import N0tice_Project.N0tice_BE.auth.domain.UserSocialAuth;
 import N0tice_Project.N0tice_BE.auth.info.OAuth2UserInfo;
@@ -44,6 +45,8 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
         Map<String, Object> attributes = oauthToken.getPrincipal().getAttributes();
 
         OAuth2UserInfo oAuth2UserInfo = switch (provider) {
+            case "google" ->
+                new GoogleUserInfo(oauthToken.getPrincipal().getAttributes());
             case "naver" -> new NaverUserInfo((Map<String, Object>) attributes.get("response"));
             default -> throw new RuntimeException("지원하지 않는 OAuth 제공자입니다.");
         };
