@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 // 리포지토리에 단순히 위임만 하는 클래스
@@ -19,11 +20,10 @@ public class CompanyService {
 
     // 사업장명 검색
     public List<Company> searchCompanies(String keyword) {
+
         List<Company> companies = companyRepository.findByCompanyNameContaining(keyword);
-        if (companies == null || companies.isEmpty()) {
-            throw new GeneralException(ErrorStatus.COMPANY_NOT_FOUND);
-        }
-        return companies;
+
+        return companies != null ? companies : Collections.emptyList();
     }
 
     // 시, 구, 동으로 검색
@@ -33,9 +33,6 @@ public class CompanyService {
 
         List<Company> companies = companyRepository.findAll(spec);
 
-        if (companies.isEmpty()) {
-            throw new GeneralException(ErrorStatus.NO_SEARCH_RESULT);
-        }
         return companies;
     }
 }
