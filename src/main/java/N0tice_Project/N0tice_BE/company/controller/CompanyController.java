@@ -38,7 +38,7 @@ public class CompanyController {
     public ApiResponse<List<CompanyResponse>> searchCompaniesByLocation(
             @RequestParam("city") String city,
             @RequestParam("district") String district,
-            @RequestParam("neighborhood") String neighborhood) {
+            @RequestParam(value = "neighborhood", required = false) String neighborhood) {
 
         List<Company> companies = companyService.searchCompaniesByLocation(city, district, neighborhood);
 
