@@ -84,13 +84,9 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
         String refreshToken = jwtTokenProvider.createRefreshToken();
         redisRepository.saveRefreshToken(userId, refreshToken);
 
-        // 리다이렉트 URL 구성
-        String encodedAccessToken = URLEncoder.encode(accessToken, StandardCharsets.UTF_8);
-        String encodedRefreshToken = URLEncoder.encode(refreshToken, StandardCharsets.UTF_8);
-        String redirectUrl = String.format("%s?accessToken=%s&refreshToken=%s",
-                JWT_REDIRECT, encodedAccessToken, encodedRefreshToken);
-
-        log.info("리다이렉트 URL: {}", redirectUrl);
-        getRedirectStrategy().sendRedirect(request, response, redirectUrl);
+        // JSON 응답 대신 딥링크로 리다이렉트
+        String redirectUrl = JWT_REDIRECT + "?accessToken=" + accessToken + "&refreshToken=" + refreshToken;
+        log.info("딥링크로 리다이렉트: {}", redirectUrl);
+        response.sendRedirect(redirectUrl);
     }
 }
