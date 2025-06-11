@@ -9,6 +9,7 @@ import N0tice_Project.N0tice_BE.auth.repository.RedisRepository;
 import N0tice_Project.N0tice_BE.auth.repository.UserSocialAuthRepository;
 import N0tice_Project.N0tice_BE.user.domain.User;
 import N0tice_Project.N0tice_BE.user.repository.UserRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -83,13 +84,16 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
         String refreshToken = jwtTokenProvider.createRefreshToken();
         redisRepository.saveRefreshToken(userId, refreshToken);
 
-        // 리다이렉트 URL 구성
-        String encodedAccessToken = URLEncoder.encode(accessToken, StandardCharsets.UTF_8);
-        String encodedRefreshToken = URLEncoder.encode(refreshToken, StandardCharsets.UTF_8);
-        String redirectUrl = String.format("%s?accessToken=%s&refreshToken=%s",
-                JWT_REDIRECT, encodedAccessToken, encodedRefreshToken);
+        // 앱에 JSON 응답으로 전달
+        response.setContentType("application/json;charset=UTF-8");
+        response.setStatus(HttpServletResponse.SC_OK);
 
-        log.info("리다이렉트 URL: {}", redirectUrl);
-        getRedirectStrategy().sendRedirect(request, response, redirectUrl);
+        Map<String, String> tokenResponse = Map.of(
+                "accessToken", accessToken,
+                "refreshToken", refreshToken
+        );
+
+        ObjectMapper mapper = new ObjectMapper();
+        response.getWriter().write(mapper.writeValueAsString(tokenResponse));
     }
 }
