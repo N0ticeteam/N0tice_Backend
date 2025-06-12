@@ -25,7 +25,8 @@ public class N0ticeBeApplication {
 		System.setProperty("OAUTH_NAVER_CLIENT_ID", dotenv.get("OAUTH_NAVER_CLIENT_ID"));
 		System.setProperty("OAUTH_NAVER_CLIENT_SECRET", dotenv.get("OAUTH_NAVER_CLIENT_SECRET"));
 		System.setProperty("OAUTH_NAVER_REDIRECT_URI", dotenv.get("OAUTH_NAVER_REDIRECT_URI"));
-
+		System.setProperty("SSL_KEYSTORE_PASSWORD", dotenv.get("SSL_KEYSTORE_PASSWORD"));
+		System.setProperty("SSL_KEYSTORE_TYPE", dotenv.get("SSL_KEYSTORE_TYPE"));
 		SpringApplication.run(N0ticeBeApplication.class, args);
 	}
 
