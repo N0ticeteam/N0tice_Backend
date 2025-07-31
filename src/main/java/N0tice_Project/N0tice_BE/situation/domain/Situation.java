@@ -21,13 +21,16 @@ public class Situation {
     private Long inputId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @Column(nullable = false)
-    private String situationType;
+    private String kindb; // 검색 조건 B
 
-    private String additionalInfoText;
-    private String inputKeywords;
-    private LocalDateTime inputTimestamp;
+    @Column(nullable = true)
+    private String kindc; // 검색 조건 C
+
+    @Column(updatable = false)
+    private LocalDateTime createdAt;
+
 }
