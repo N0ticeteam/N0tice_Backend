@@ -57,16 +57,16 @@ public class PrecedentService {
     }
 
     @Transactional(readOnly = true)
-    public PrecedentDetailResponse findPrecedentDetail(Long situationId, String title) {
+    public PrecedentDetailResponse findPrecedentDetail(Long situationId, String caseNumber) {
 
         Situation situation = situationRepository.findById(situationId)
                 .orElseThrow(() -> new GeneralException(ErrorStatus._SITUATION_NOT_FOUND));
 
         List<Item> allItems = searchAndMergeLostCases(situation.getKindb(), situation.getKindc());
 
-        // 제목이 일치하는 첫 번째 항목
+        // 사건 번호가 일치하는 첫 번째 항목
         return allItems.stream()
-                .filter(item -> item.getTitle().equals(title))
+                .filter(item -> item.getAccnum().equals(caseNumber))
                 .findFirst()
                 .map(PrecedentDetailResponse::from)
                 .orElseThrow(() -> new GeneralException(ErrorStatus._PRECEDENT_NOT_FOUND));
