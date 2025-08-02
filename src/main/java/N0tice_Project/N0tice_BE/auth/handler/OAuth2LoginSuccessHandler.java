@@ -9,6 +9,7 @@ import N0tice_Project.N0tice_BE.auth.repository.RedisRepository;
 import N0tice_Project.N0tice_BE.auth.repository.UserSocialAuthRepository;
 import N0tice_Project.N0tice_BE.user.domain.User;
 import N0tice_Project.N0tice_BE.user.repository.UserRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -83,13 +84,13 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
         String refreshToken = jwtTokenProvider.createRefreshToken();
         redisRepository.saveRefreshToken(userId, refreshToken);
 
-        // 리다이렉트 URL 구성
+        // ✅ URL 인코딩 (안드로이드에서 파싱 에러 방지)
         String encodedAccessToken = URLEncoder.encode(accessToken, StandardCharsets.UTF_8);
         String encodedRefreshToken = URLEncoder.encode(refreshToken, StandardCharsets.UTF_8);
         String redirectUrl = String.format("%s?accessToken=%s&refreshToken=%s",
                 JWT_REDIRECT, encodedAccessToken, encodedRefreshToken);
 
-        log.info("리다이렉트 URL: {}", redirectUrl);
-        getRedirectStrategy().sendRedirect(request, response, redirectUrl);
+        log.info("✅ 앱으로 리다이렉트: {}", redirectUrl);
+        response.sendRedirect(redirectUrl);
     }
 }
