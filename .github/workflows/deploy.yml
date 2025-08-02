@@ -79,5 +79,6 @@ jobs:
              -e JWT_ACCESS_TOKEN_EXPIRATION_TIME=${{ secrets.JWT_ACCESS_TOKEN_EXPIRATION_TIME }} \
              -e JWT_REFRESH_TOKEN_EXPIRATION_TIME=${{ secrets.JWT_REFRESH_TOKEN_EXPIRATION_TIME }} \
              -e JWT_REDIRECT=${{ secrets.JWT_REDIRECT }} \
+             -e PUBLIC_API_SERVICE_KEY=${{ secrets.PUBLIC_API_SERVICE_KEY }} \
              ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:latest
            sudo docker image prune -af
