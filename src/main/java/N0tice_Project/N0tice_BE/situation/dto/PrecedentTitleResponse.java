@@ -1,16 +1,19 @@
 package N0tice_Project.N0tice_BE.situation.dto;
 
-import N0tice_Project.N0tice_BE.company.domain.Company;
-import N0tice_Project.N0tice_BE.company.dto.CompanyResponse;
-import N0tice_Project.N0tice_BE.situation.domain.Situation;
+import N0tice_Project.N0tice_BE.global.external.dto.Item;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class AccidentCaseTitleResponse {
-    private String caseNumber; // 사건번호 (상세 조회를 위한 key)
-    private String caseTitle;  // 사건명
+@Schema(description = "판례 제목 응답 DTO")
+public class PrecedentTitleResponse {
+
+    private String title;
+
+    public static PrecedentTitleResponse from(Item item) { return new PrecedentTitleResponse(item.getTitle()); }
+
 }
