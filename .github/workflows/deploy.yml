@@ -63,7 +63,8 @@ jobs:
            sudo docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:latest
            sudo docker stop ${{ secrets.DOCKER_IMAGE_NAME }} || true
            sudo docker rm ${{ secrets.DOCKER_IMAGE_NAME }} || true
-           sudo docker run --name ${{ secrets.DOCKER_IMAGE_NAME }} --rm -d -p 8080:8080 \
+           sudo docker run --name ${{ secrets.DOCKER_IMAGE_NAME }} --rm -d -p 443:443 \
+             -e SERVER_PORT=443
              -e DB_URL=${{ secrets.DB_URL }} \
              -e DB_USERNAME=${{ secrets.DB_USERNAME }} \
              -e DB_PASSWORD=${{ secrets.DB_PASSWORD }} \
