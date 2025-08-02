@@ -26,9 +26,9 @@ public class PrecedentController {
     @GetMapping("/detail")
     public ApiResponse<PrecedentDetailResponse> getPrecedentDetail(
             @RequestParam("input-id") Long situationId,
-            @RequestParam("title") String title) {
+            @RequestParam("case-number") String caseNumber) {
 
-        PrecedentDetailResponse detail = precedentService.findPrecedentDetail(situationId, title);
+        PrecedentDetailResponse detail = precedentService.findPrecedentDetail(situationId, caseNumber);
         return ApiResponse.onSuccess(detail);
     }
 
