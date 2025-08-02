@@ -13,7 +13,21 @@ import lombok.NoArgsConstructor;
 public class PrecedentTitleResponse {
 
     private String title;
+    private String courtName;
+    private String caseNumber;
 
-    public static PrecedentTitleResponse from(Item item) { return new PrecedentTitleResponse(item.getTitle()); }
+    public static PrecedentTitleResponse from(Item item) {
 
+        String conclusion = "[" + item.getKinda() + "] ";
+
+        String originalTitle = item.getTitle();
+
+        String newTitle = conclusion + originalTitle;
+
+        return new PrecedentTitleResponse(
+                newTitle,
+                item.getCourtname(),
+                item.getAccnum()
+        );
+    }
 }
