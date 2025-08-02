@@ -1,4 +1,4 @@
-package N0tice_Project.N0tice_BE.global.external;
+package N0tice_Project.N0tice_BE.global.external.dto;
 
 import lombok.Getter;
 import lombok.Setter;

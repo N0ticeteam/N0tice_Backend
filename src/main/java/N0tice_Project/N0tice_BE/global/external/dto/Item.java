@@ -1,4 +1,4 @@
-package N0tice_Project.N0tice_BE.global.external;
+package N0tice_Project.N0tice_BE.global.external.dto;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -11,6 +11,6 @@ public class Item {
     private String kinda;
     private String kindb;
     private String kindc;
-    private String noncontent; // 상세 내용에 해당
-    private String title;      // 제목에 해당
+    private String noncontent;
+    private String title;
 }
