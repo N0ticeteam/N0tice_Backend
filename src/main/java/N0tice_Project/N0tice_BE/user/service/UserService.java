@@ -22,12 +22,12 @@ public class UserService {
         try {
             Long userIdLong = Long.parseLong(userId);
             User user = userRepository.findById(userIdLong)
-                    .orElseThrow(() -> new GeneralException(ErrorStatus.USER_NOT_FOUND));
+                    .orElseThrow(() -> new GeneralException(ErrorStatus._USER_NOT_FOUND));
 
             return UserResponse.from(user);
             
         } catch (NumberFormatException e) {
-            throw new GeneralException(ErrorStatus.INVALID_USER_ID);
+            throw new GeneralException(ErrorStatus._INVALID_USER_ID);
         }
     }
 
