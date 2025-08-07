@@ -1,6 +1,10 @@
 package N0tice_Project.N0tice_BE.auth.config;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
+import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
@@ -33,7 +37,7 @@ public class JwtTokenProvider {
                 .signWith(getSigningKey())
                 .compact();
 
-        log.info("액세스 토큰이 발행되었습니다.");
+        log.info("액세스 토큰이 발행되었습니다. 사용자 ID: {}", userId);
         return token;
     }
 
@@ -47,4 +51,23 @@ public class JwtTokenProvider {
         log.info("리프레쉬 토큰이 발행되었습니다.");
         return token;
     }
+
+    // 토큰에서 사용자 ID 추출
+    public String getUserIdFromToken(String token) {
+        try {
+            Claims claims = Jwts.parser()
+                    .setSigningKey(getSigningKey())
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody();
+            
+            String userId = claims.getSubject();
+            log.debug("토큰에서 사용자 ID 추출: {}", userId);
+            return userId;
+        } catch (Exception e) {
+            log.error("토큰에서 사용자 ID 추출 실패: {}", e.getMessage());
+            return null;
+        }
+    }
+
 }
