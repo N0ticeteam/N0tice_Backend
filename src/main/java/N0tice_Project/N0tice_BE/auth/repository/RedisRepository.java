@@ -4,22 +4,32 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.time.Duration;
+
 @Repository
 @RequiredArgsConstructor
 public class RedisRepository {
     private final RedisTemplate<String, String> redisTemplate;
 
     private static final String REFRESH_TOKEN_PREFIX = "RT:";
+    private static final Duration REFRESH_TOKEN_TTL = Duration.ofDays(7); // 7일 TTL
 
+    // Refresh Token을 Redis에 저장
     public void saveRefreshToken(String userId, String refreshToken) {
-        redisTemplate.opsForValue().set(REFRESH_TOKEN_PREFIX + userId, refreshToken);
+        String key = REFRESH_TOKEN_PREFIX + userId;
+        redisTemplate.opsForValue().set(key, refreshToken, REFRESH_TOKEN_TTL);
     }
 
+    // 사용자 ID로 Refresh Token 조회
     public String getRefreshToken(String userId) {
-        return redisTemplate.opsForValue().get(REFRESH_TOKEN_PREFIX + userId);
+        String key = REFRESH_TOKEN_PREFIX + userId;
+        return redisTemplate.opsForValue().get(key);
     }
 
+    // 사용자 ID로 Refresh Token 삭제
     public void deleteRefreshToken(String userId) {
-        redisTemplate.delete(REFRESH_TOKEN_PREFIX + userId);
+        String key = REFRESH_TOKEN_PREFIX + userId;
+        redisTemplate.delete(key);
     }
+
 }

@@ -16,8 +16,8 @@ public enum ErrorStatus implements BaseCode {
     _FORBIDDEN(HttpStatus.FORBIDDEN, "COMMON403", "금지된 요청입니다."),
 
     // Company 관련 에러 코드 추가
-    COMPANY_NOT_FOUND(HttpStatus.NOT_FOUND, "COMPANY404", "해당 회사를 찾을 수 없습니다."),
-    NO_SEARCH_RESULT(HttpStatus.NOT_FOUND, "COMPANY404", "검색 결과가 없습니다."),
+    _COMPANY_NOT_FOUND(HttpStatus.NOT_FOUND, "COMPANY404", "해당 회사를 찾을 수 없습니다."),
+    _NO_SEARCH_RESULT(HttpStatus.NOT_FOUND, "COMPANY404", "검색 결과가 없습니다."),
 
     // Worklog 관련 에러 코드 추가
     _NOT_FOUND(HttpStatus.NOT_FOUND,"WORKLOG404", "해당 작업일지를 찾을 수 없습니다."),
@@ -25,6 +25,7 @@ public enum ErrorStatus implements BaseCode {
 
     // User 관련 에러
     _USER_NOT_FOUND(HttpStatus.NOT_FOUND, "USER404", "해당 사용자를 찾을 수 없습니다."),
+    _INVALID_USER_ID(HttpStatus.BAD_REQUEST, "USER400", "잘못된 사용자 ID 형식입니다."),
 
     // Situation 관련 에러
     _SITUATION_NOT_FOUND(HttpStatus.NOT_FOUND, "SITUATION404", "해당 상황 정보를 찾을 수 없습니다."),
